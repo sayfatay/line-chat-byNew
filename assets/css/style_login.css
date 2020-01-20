@@ -1,0 +1,71 @@
+@import "bourbon";
+
+body {
+  background: #eee !important;  
+}
+
+.wrapper { 
+    margin-top:15%;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
+.avatar{
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: -50px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #60c7c1;
+    padding: 15px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.avatar i{    
+    font-size: 60px;
+    color: #FFF;
+    padding-left: 10%;}
+.login-title {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -15px;
+}
+.login-body {
+    position: relative;
+    display: block;
+    padding: 30px 15px 15px 15px;
+}
+.login-body .btn {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border: none;
+}
+.login-body .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #60c7c1;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border: none;
+}
+.login-footer{
+    background: #ecf0f1;
+    border-color: #dee4e7;
+    text-align: center;
+    justify-content: center;
+    margin: 0 -20px -5px;
+    border-radius: 5px;
+    font-size: 13px;
+
+}
+.login-footer a{color: #999;     text-decoration: none;}
