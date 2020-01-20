@@ -10,12 +10,19 @@ class Line extends CI_Controller {
     public function __construct()
     {
       parent::__construct();
+      $this->load->model('database_model');
     
     }
 
 	public function index()
 	{
-        $this->load->view('line/chat');
+
+        $shp_id = 5; 
+
+        $chat = $this->database_model->getChat($shp_id);
+        
+        $data['chat'] = $chat;
+        $this->load->view('line/chat', $data);
 		
     }
 
