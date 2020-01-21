@@ -73,9 +73,12 @@
 	<!-- custom scrollbar plugin -->
     <script src="<?=base_url()?>assets/js/jquery-3.4.1.min.js"></script>
     <script>
-	var shop_id = "<?=$shop_id?>";
+	wsUri = 'localhsot:3000';
+	var socket = io.connect(wsUri);
+	var user_id, shop_id = "<?=$shop_id?>";
     $(function(){
         //clickli()
+		socket.emit('connect', {test:'111'});
 		loadChat()
     })
 
@@ -156,6 +159,26 @@
 
         });
     }
+
+	function sendMsg(){
+		var message = $("#text-msg").val();
+		if(message !== ""){
+			$("#text-msg").val("");
+
+			socket.emit('sendMsg', {user_id: user_id, shop_id: shop_id, message: message});
+
+			var html = 	'<li class="msg-right">'+
+						'<div class="msg-left-sub">'+
+							'<div class="msg-desc">'+message+'</div>'+
+							'<small>05:25 am</small>'+
+						'</div>'+
+					'</li>';
+
+			$(".chat-detail").append(html);
+			$("#scrollbar").scrollTop( 20000 );
+		}
+	}
+
     </script>
 
 </body>

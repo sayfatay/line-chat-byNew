@@ -94,7 +94,7 @@
     <script src="<?=base_url()?>assets/js/jquery-3.4.1.min.js"></script>
     <script>
         var user_id, shop_id = 5;
-        wsUri = 'http://127.0.0.1';
+        wsUri = 'http://127.0.0.1:3000';
         //wsUri = 'https://oobs-dba.com/webhook';
         var socket = io.connect(wsUri);
         $(function(){
