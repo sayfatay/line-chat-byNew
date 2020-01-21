@@ -175,7 +175,6 @@
                                 $(".chat-detail").append(html);
                             }
                             
-                            
                         }
 
                         $("#scrollbar").scrollTop( 20000 );

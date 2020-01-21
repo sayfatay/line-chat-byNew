@@ -34,7 +34,7 @@
 		<div class="body-section">
 			<div class="left-section mCustomScrollbar" data-mcs-theme="minimal-dark">
 				<ul class="user-person">
-                <?php foreach($chat as $key => $value){ ?>
+                <?php /*foreach($chat as $key => $value){ ?>
 					<li data-id="<?=$value['ind']?>">
 						<div class="chatList">
 							<div class="img">
@@ -48,7 +48,7 @@
 							</div>
 						</div>
 					</li>
-                <?php }?>
+                <?php }*/?>
 				</ul>
 			</div>
 			<div class="right-section">
@@ -73,16 +73,86 @@
 	<!-- custom scrollbar plugin -->
     <script src="<?=base_url()?>assets/js/jquery-3.4.1.min.js"></script>
     <script>
-
+	var shop_id = "<?=$shop_id?>";
     $(function(){
-        clickli()
+        //clickli()
+		loadChat()
     })
+
+	function loadChat(){
+
+		var url = "<?=base_url()?>line/getChart/"+shop_id;
+		$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: url,
+		success: function(result) {
+			$(".user-person").html('');
+			$.each( result.item, function( i, val ) {
+			//$( "#" + i ).append( document.createTextNode( " - " + val ) );
+			var html ='<li data-id="'+val.ind+'">'+
+				'<div class="chatList">'+
+					'<div class="img">'+
+						'<i class="fa fa-circle"></i>'+
+						'<img src="'+val.line_img+'">'+
+					'</div>'+
+					'<div class="desc">'+
+						'<small class="time">'+val.date_time+'</small>'+
+						'<h5>'+val.line_name+'</h5>'+
+						'<small>'+val.message+'</small>'+
+					'</div>'+
+				'</div>'+
+			'</li>';
+			$( ".user-person" ).append(html);
+		});
+		
+		clickli();
+		}
+
+		});
+	}
 
     function clickli(){
         $(".user-person li").on("click",function() {
                 var id = $(this).data('id');
                 user_id = id;
-                alert(user_id);
+
+				var url = "<?=base_url()?>line/getlineuser/"+id;
+				$.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: url,
+                    success: function(result) {
+
+						$(".line_user").html(result.user.line_name);
+                        $(".chat-detail").html('');
+
+						for(var i = result.msg.length; i >= 0; i--){
+                            if( result.msg[i] !== undefined){
+                                var msg_type = "";
+                                var msg_profile = "";
+                                //console.log(result.msg[i]['ind']);
+
+                                if(result.msg[i]['type']== 1){
+                                    msg_type = "msg-right";
+                                }else{
+                                    msg_type = "msg-left";
+                                    msg_profile = '<img src="'+result.user.line_img+'">';
+                                }
+                                var html = 	'<li class="'+msg_type+'">'+
+                                    '<div class="msg-left-sub">'+msg_profile+
+                                        '<div class="msg-desc">'+result.msg[i]['message']+'</div>'+
+                                        '<small>05:25 am</small>'+
+                                    '</div>'+
+                                '</li>';
+
+                                $(".chat-detail").append(html);
+                            }
+                            
+                        }
+						$("#scrollbar").scrollTop( 20000 );
+					}
+				});
 
         });
     }
